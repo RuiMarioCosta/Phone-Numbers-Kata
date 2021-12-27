@@ -1,5 +1,7 @@
 # Run tests with html report:
 # $ pytest pytest/ --html=report/report.html
+# $ pytest --cov-report=html --cov=phonebook/ pytest/
+# $ pytest --cov-report=html --cov-branch --cov=phonebook/ pytest/
 
 import pytest
 

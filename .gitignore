@@ -1,4 +1,6 @@
 __pychace__/
+.mypy_cache/
+.pytest_cache/
 *.idea
 *.vscode
 *.pyc
