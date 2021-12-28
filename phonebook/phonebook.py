@@ -1,4 +1,5 @@
 import os
+import csv
 
 
 class Phonebook:
@@ -7,8 +8,12 @@ class Phonebook:
         self.filename = os.path.join(cache_directory, "phonebook.txt")
         self.cache = open(self.filename, "w")
 
-    def add(self, name, number) -> None:
-        self.numbers[name] = number
+    def add(self, name: str, number: str) -> None:
+        number = number.replace(" ", "").replace("-", "")
+        if number.isnumeric():
+            self.numbers[name] = number
+        else:
+            raise ValueError
 
     def lookup(self, name) -> str:
         return self.numbers[name]
@@ -28,3 +33,11 @@ class Phonebook:
     def clear(self):
         self.cache.close()
         os.remove(self.filename)
+
+    def load_phone_data(self, filepath: str) -> None:
+        with open(filepath) as csvfile:
+            reader = csv.reader(csvfile)
+            next(reader)
+            for row in reader:
+                if row:
+                    self.add(row[0], row[1])
