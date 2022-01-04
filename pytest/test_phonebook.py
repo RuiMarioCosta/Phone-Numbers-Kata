@@ -1,13 +1,17 @@
-# Run tests with html report:
-# $ pytest pytest/ --html=report/report.html
-# $ pytest --cov-report=html --cov=phonebook/ pytest/
-# $ pytest --cov-report=html --cov-branch --cov=phonebook/ pytest/
+"""
+Run tests with html report:
+pytest pytest/ --html=report/report.html
+pytest --cov-report=html --cov=phonebook/ pytest/
+pytest --cov-report=html --cov-branch --cov=phonebook/ pytest/
+python -m cProfile -o profile.prof -m pytest . -k load_phone_data__10000_entries__is_consistent -v
+"""
 
 import pytest
 
 
 def test_lookup_by_name(phonebook):
     phonebook.add("Bob", "1234")
+
     assert "1234" == phonebook.lookup("Bob")
 
 
@@ -67,7 +71,7 @@ def test__add_entry__with_spaces_or_dashes__strip_them(phonebook):
 
 
 def test__load_phone_data__is_consistent(phonebook):
-    phonebook.load_phone_data('../phone_data.txt')
+    phonebook.load_phone_data("../phone_data.txt")
 
     result = phonebook.is_consistent()
 
@@ -75,7 +79,7 @@ def test__load_phone_data__is_consistent(phonebook):
 
 
 def test__load_phone_data__10000_entries__is_consistent(phonebook):
-    phonebook.load_phone_data('../phone_data_10000.txt')
+    phonebook.load_phone_data("../phone_data_10000.txt")
 
     result = phonebook.is_consistent()
 
